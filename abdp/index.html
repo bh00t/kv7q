@@ -235,11 +235,8 @@ const FACETS=[
  {k:'seed',l:'Idea it gives',get:r=>[r.seed]},
  {k:'g',l:'Topic',get:r=>[r.g]},
  {k:'st',l:'Used by me?',get:r=>[r.st]}];
-const COL={d:{l:'Published',w:92,h:'Date AWS published the post'},a:{l:'What to do',w:110,h:'Post, Small PoC, Pipeline, Own blog, Build a tool, Learn only or Skip'},p:{l:'Priority',w:80,h:'High, Med or Low, from your stack'},
- fam:{l:'AWS services',w:210,h:'Services the post is about'},ty:{l:'Kind of post',w:200,h:'Customer story, best practice, comparison, how-to…'},fit:{l:'My experience',w:110,h:'Used it, New to me or Off path'},
- seed:{l:'Idea it gives',w:140,h:'Tool idea, Service idea or Architect knowledge'},dec:{l:'Trade-off it covers',w:340,h:'The design choice this post helps you make (A vs B)'},kp:{l:'Key points',w:420,h:'2–4 short points from the post'},
- g:{l:'Topic',w:180,h:'Broader theme, e.g. Streaming, Governance'},at:{l:'Fits my project',w:260,h:'Which of your repos or planned PoCs it feeds'},aws:{l:'AWS category · level',w:170,h:'AWS blog category and level (100 basic → 400 expert)'},
- au:{l:'Company / authors',w:240,h:'Customer company and the authors'},st:{l:'Used by me?',w:110,h:'Not used yet or Already used'}};
+/* column order = a left-to-right decision flow: when → what to do → what it is about → what is in it → what it means for me → how it is classified → source */
+const COL={d:{l:'Published',w:92,h:'Date AWS published the post'},a:{l:'What to do',w:110,h:'Post, Small PoC, Pipeline, Own blog, Build a tool, Learn only or Skip'},p:{l:'Priority',w:80,h:'High, Med or Low, from your stack'},fam:{l:'AWS services',w:210,h:'Services the post is about'},dec:{l:'Trade-off it covers',w:340,h:'The design choice this post helps you make (A vs B)'},kp:{l:'Key points',w:420,h:'2–4 short points from the post'},seed:{l:'Idea it gives',w:140,h:'Tool idea, Service idea or Architect knowledge'},at:{l:'Fits my project',w:260,h:'Which of your repos or planned PoCs it feeds'},fit:{l:'My experience',w:110,h:'Used it, New to me or Off path'},ty:{l:'Kind of post',w:200,h:'Customer story, best practice, comparison, how-to…'},g:{l:'Topic',w:180,h:'Broader theme, e.g. Streaming, Governance'},aws:{l:'AWS category · level',w:170,h:'AWS blog category and level (100 basic → 400 expert)'},au:{l:'Company / authors',w:240,h:'Customer company and the authors'},st:{l:'Used by me?',w:110,h:'Not used yet or Already used'}};
 const INTENTS=[
  {id:'post',l:'Post ideas',hint:"Explain-only, no hands-on. Pick this week's post; keep 2–3 banked.",f:r=>r.a==='Post',cols:['p','fam','dec','d']},
  {id:'hands',l:'Hands-on',hint:'Try, measure, publish: PoC, own blog, pipeline stage or tool.',f:r=>['Small PoC','Own blog','Pipeline','Build a tool'].includes(r.a),cols:['a','p','fam','at','d']},
