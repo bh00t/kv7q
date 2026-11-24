@@ -211,7 +211,7 @@ tbody tr.r.cur td.tc{box-shadow:inset 3px 0 0 var(--blue),2px 0 0 var(--ln)}
   <aside class="side" id="side" aria-label="Search and filters"></aside>
   <div class="scrim" id="scrim"></div>
   <section class="content">
-    <div class="tools"><button class="btn fbtn" id="fbtn">Filters</button><div class="sbox"><label class="search"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 14 15.5l.3.3v.8l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg><input id="q" type="text" autocomplete="off" spellcheck="false" placeholder="Search blogs  ( / )" aria-label="Search" role="combobox" aria-controls="sug" aria-expanded="false"><span id="qn" class="qn"></span><button id="qx" class="qx" aria-label="Clear search" hidden>×</button></label><div id="sug" class="sug" role="listbox"></div></div><button class="btn" id="newb">New</button></div>
+    <div class="tools"><button class="btn fbtn" id="fbtn">Filters</button><div class="sbox"><label class="search"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 14 15.5l.3.3v.8l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg><input id="q" type="text" autocomplete="off" spellcheck="false" placeholder="Search blogs  ( / )" aria-label="Search" role="combobox" aria-controls="sug" aria-expanded="false"><span id="qn" class="qn"></span><button id="qx" class="qx" aria-label="Clear search" hidden>×</button></label><div id="sug" class="sug" role="listbox"></div></div><button class="btn" id="newb" title="Posts added in the last 30 days that were published at most 30 days before they were added">New</button></div>
     <div class="chips" id="chips"></div>
     <div class="wrap" id="wrap"></div>
     <div class="ytabs" id="ytabs"><div class="yrs" id="yrs" role="tablist" aria-label="Year sheets"></div></div>
@@ -278,7 +278,7 @@ function load(items,src){
  ROWS=items.map(norm).map(applyTags).filter(r=>{const k=r.u||r.t;if(!r.t||seen.has(k))return false;seen.add(k);return true}).map((r,id)=>{
   const f=FAM.filter(([,re])=>re.test(r.sv+' '+r.ms)).map(([n])=>n);if(r.ms&&!FAM.some(([,re])=>re.test(r.ms))&&!f.includes(r.ms))f.push(r.ms);
   return {...r,id,fam:f.length?f:['Other'],hay:(r.t+' '+r.kp.join(' ')+' '+r.sv+' '+r.dec+' '+r.g+' '+r.at+' '+r.au).toLowerCase()}});
- NEWCUT=dayStr(-30);ROWS.forEach(r=>r.isNew=(r.add||r.d)>=NEWCUT);applyProfile();
+ NEWCUT=dayStr(-30); /* New = added in the last 30 days AND published at most 30 days before it was added (backfilled old posts never count) */ ROWS.forEach(r=>{const a=r.add||r.d;r.isNew=a>=NEWCUT&&(!r.d||Date.parse(a)-Date.parse(r.d)<=30*864e5)});applyProfile();
  SRC=src;S.cur=null;render();
 }
 let UPD='',CHK='',RES='';
