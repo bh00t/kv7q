@@ -494,7 +494,8 @@ $('sheet').onclick=e=>{const b=e.target.closest('[data-s]');if(!b)return;const a
 { /* laptop touchpad: a clear sideways two-finger swipe on the details panel = next / previous record (same direction as the phone swipe).
      Left alone: vertical scrolling, Ctrl+wheel (browser zoom), Shift+wheel (mouse sideways scroll), and anything inside the panel that can itself scroll sideways.
      The browser's own swipe-back is blocked only while the pointer is over the open panel; everywhere else it works as normal. */
-  const sh=$('sheet');let acc=0,lock=false,quiet=0;
+  const sh=$('sheet');let acc=0,lock=false,quiet=0,sgn=0,peak=0,low=0,faded=false;
+  const reset=()=>{acc=0;lock=false;peak=0;low=0;faded=false};
   const canScrollX=(el,d)=>{for(;el&&el!==sh;el=el.parentElement){if(el.scrollWidth>el.clientWidth+1&&/auto|scroll/.test(getComputedStyle(el).overflowX)&&(d>0?el.scrollLeft+el.clientWidth<el.scrollWidth-1:el.scrollLeft>0))return true}return false};
   sh.addEventListener('wheel',e=>{
    if(CUR===null||e.ctrlKey||e.shiftKey)return;
@@ -502,10 +503,18 @@ $('sheet').onclick=e=>{const b=e.target.closest('[data-s]');if(!b)return;const a
    if(ax<=ay*1.5)return;                       /* mostly vertical = normal scrolling */
    if(canScrollX(e.target,e.deltaX))return;     /* an inner sideways scroller gets it */
    e.preventDefault();
-   clearTimeout(quiet);quiet=setTimeout(()=>{acc=0;lock=false},180); /* one move per gesture; touchpad momentum is absorbed */
-   if(lock)return;
-   acc+=e.deltaMode===1?e.deltaX*16:e.deltaX;
-   if(Math.abs(acc)>=90){lock=true;step(acc>0?1:-1)}
+   const dx=e.deltaMode===1?e.deltaX*16:e.deltaX,s=Math.sign(dx);
+   clearTimeout(quiet);quiet=setTimeout(reset,180); /* a pause ends the gesture */
+   if(lock){
+    /* the touchpad keeps sending a fading glide after a swipe; a NEW swipe that starts before the glide ends
+       shows up as the direction flipping, or the movement rising again after it had faded */
+    if(s&&s!==sgn&&ax>4)reset();
+    else if(!faded){peak=Math.max(peak,ax);if(ax<peak*0.45){faded=true;low=ax}}
+    else{low=Math.min(low,ax);if(ax>Math.max(low*2.5,6))reset()}
+    if(lock)return;
+   }
+   if(s&&s!==sgn)acc=0;sgn=s;acc+=dx;
+   if(Math.abs(acc)>=90){lock=true;peak=ax;step(acc>0?1:-1)}
   },{passive:false});
 }
 { /* touch gestures: swipe left/right = next/previous, pull down = close (phone sheet) */
