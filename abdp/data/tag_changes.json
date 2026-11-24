@@ -1,4 +1,371 @@
 {
  "note": "Tag changes made after a post was first stored. Keyed by post URL; only the changed fields. These win over the month files. Fields: action, priority, stack_fit, blog_types, seed, decision, group, attaches_to, status, main_service, services, key_points, plus changed_on, why, by (schedule|chat).",
- "posts": {}
+ "posts": {
+  "https://aws.amazon.com/blogs/big-data/understanding-and-optimizing-materialized-views-in-amazon-redshift/": {
+   "main_service": "Redshift",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/introducing-amazon-emr-serverless-flex-run-non-urgent-spark-jobs-at-a-discount/": {
+   "main_service": "EMR",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/how-twilio-modernized-billing-at-70-lower-cost-with-amazon-redshift/": {
+   "main_service": "Redshift",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/how-moonfrog-scales-analytics-and-lowers-query-cost-with-amazon-redshift-rg-instances/": {
+   "main_service": "Redshift",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/how-klaviyo-processes-3-billion-daily-events-at-scale-with-amazon-msk-express/": {
+   "main_service": "MSK / Kafka",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/guardrails-and-cost-control-for-your-agentic-workloads-with-amazon-redshift/": {
+   "main_service": "Redshift",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/announcing-in-place-upgrades-from-standard-brokers-to-express-brokers-for-amazon-msk/": {
+   "main_service": "MSK / Kafka",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/amazon-s3-tables-with-dbt-iceberg-based-data-transformations-using-aws-glue/": {
+   "main_service": "dbt",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/orchestrate-duckdb-analytics-pipelines-with-amazon-mwaa/": {
+   "main_service": "DuckDB",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/long-term-amazon-redshift-observability-with-datadog-and-amazon-s3-tables/": {
+   "main_service": "Redshift",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/introducing-the-apache-spark-optimization-agent-for-amazon-emr-serverless-and-aws-glue-etl/": {
+   "main_service": "Glue",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/introducing-automatic-version-upgrades-for-aws-glue-jobs/": {
+   "main_service": "Glue",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/introducing-amazon-opensearch-memory-persistent-memory-for-ai-agents/": {
+   "main_service": "OpenSearch",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/reduce-the-complexity-and-cost-of-real-time-processing-with-queues-in-amazon-kinesis-data-streams/": {
+   "main_service": "Kinesis",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/how-veeva-scaled-big-data-with-amazon-emr-on-eks/": {
+   "main_service": "EMR",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/amazon-msk-express-brokers-available-on-aws-graviton4-based-m8g-instances/": {
+   "main_service": "MSK / Kafka",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/upgrading-and-troubleshooting-amazon-mwaa-with-aws-agent-skills/": {
+   "main_service": "MWAA / Airflow",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/migrate-apache-solr-to-amazon-opensearch-service-with-the-ai-driven-migration-assistant/": {
+   "main_service": "OpenSearch",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/introducing-enhanced-snapshots-for-amazon-managed-service-for-apache-flink/": {
+   "main_service": "Flink",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/deliver-petabytes-of-apache-kafka-data-to-amazon-s3-at-up-to-60-lower-cost-with-amazon-msk-express-brokers/": {
+   "main_service": "MSK / Kafka",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/analyze-anthropic-usage-spend-and-access-with-aws-glue-amazon-s3-tables-and-aws-quick/": {
+   "main_service": "Glue",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/understanding-span-queries-in-amazon-opensearch-service/": {
+   "main_service": "OpenSearch",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/optimizing-pyspark-udfs-on-aws-glue-6-0-with-native-arrow-udfs/": {
+   "main_service": "Glue",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/multi-statement-transactions-for-apache-iceberg-tables-in-amazon-redshift/": {
+   "main_service": "Redshift",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/choose-the-right-streaming-ingestion-path-for-apache-iceberg-tables-on-aws/": {
+   "main_service": "Iceberg / S3 Tables",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/build-a-self-healing-etl-pipeline-with-amazon-bedrock-agentcore/": {
+   "main_service": "Bedrock / AI agents",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/migrating-from-apache-hudi-based-data-lake-to-apache-iceberg-based-data-lake/": {
+   "main_service": "Iceberg / S3 Tables",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/optimizing-apache-hbase-availability-on-amazon-emr-part-2-diagnose-and-tune-compaction/": {
+   "main_service": "EMR",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/managed-cross-region-disaster-recovery-for-amazon-opensearch-service/": {
+   "main_service": "OpenSearch",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/how-samsung-ads-federated-snowflake-iceberg-tables-using-amazon-cognito/": {
+   "main_service": "Lake Formation",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/how-intuit-migrated-from-apache-hive-metastore-to-aws-glue-data-catalog/": {
+   "main_service": "Glue",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/governance-compliance-beyond-the-catalog-in-amazon-sagemaker-unified-studio/": {
+   "main_service": "SageMaker",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/build-a-multi-team-ai-and-analytics-environment-on-amazon-sagemaker-unified-studio-with-terraform/": {
+   "main_service": "SageMaker",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/build-a-data-foundation-for-agentic-ai-on-aws-from-lakehouse-to-mcp/": {
+   "main_service": "Bedrock / AI agents",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/allocate-shared-amazon-msk-costs-to-kafka-topics-for-cost-visibility/": {
+   "main_service": "MSK / Kafka",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/multiply-pre-recorded-streams-with-amazon-managed-service-for-apache-flink/": {
+   "main_service": "Flink",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/46-fewer-nodes-2x-faster-indexing-confluent-on-amazon-opensearch-service/": {
+   "main_service": "OpenSearch",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/define-metrics-once-and-keep-them-correct-with-the-dbt-semantic-layer-on-amazon-redshift/": {
+   "main_service": "dbt",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/automate-etl-pipeline-creation-with-amazon-bedrock-agentcore-and-aws-glue/": {
+   "main_service": "Bedrock / AI agents",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/assess-and-track-your-amazon-redshift-ra3-to-rg-modernization-with-cudos/": {
+   "main_service": "Redshift",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/amazon-athena-introduces-system-tables-for-query-execution-observability/": {
+   "main_service": "Athena",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/store-and-process-large-strings-in-amazon-redshift-super-columns/": {
+   "main_service": "Redshift",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/deliver-multi-tenant-ai-analytics-at-scale-with-agentcore-and-lake-formation/": {
+   "main_service": "Lake Formation",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/migrate-google-bigquery-to-an-open-lakehouse-on-aws-with-apache-iceberg/": {
+   "main_service": "Iceberg / S3 Tables",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/implement-least-privilege-access-with-designations-in-amazon-sagemaker-unified-studio/": {
+   "main_service": "SageMaker",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/optimizing-apache-hbase-availability-on-amazon-emr-part-1-coordinator-startup-regionserver-recovery-and-regions-in-transition/": {
+   "main_service": "EMR",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/introducing-the-next-generation-of-serverless-time-series-for-amazon-opensearch-service/": {
+   "main_service": "OpenSearch",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/from-problem-to-fix-in-minutes-automating-search-relevance-tuning-with-the-amazon-opensearch-service-relevance-agent/": {
+   "main_service": "OpenSearch",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/enable-cross-region-fine-grained-data-access-with-aws-lake-formation-and-trusted-identity-propagation/": {
+   "main_service": "Lake Formation",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/build-rag-ready-indexes-from-amazon-s3-with-amazon-opensearch-intelligent-ingestion/": {
+   "main_service": "OpenSearch",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/trace-security-threats-in-multi-agent-pipelines-with-amazon-opensearch-service/": {
+   "main_service": "OpenSearch",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/dbt-and-amazon-redshift-data-sharing-multi-cluster-pipelines-without-moving-a-byte/": {
+   "main_service": "Redshift",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/resolving-concurrent-write-conflicts-for-apache-iceberg-tables-in-amazon-redshift/": {
+   "main_service": "Redshift",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/build-cross-account-streaming-pipelines-with-the-amazon-kinesis-producer-library-and-kinesis-client-library/": {
+   "main_service": "Kinesis",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/bring-data-quality-to-your-amazon-emr-workloads-with-amazon-emr-data-quality-built-on-aws-glue-data-quality/": {
+   "main_service": "EMR",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/query-across-accounts-and-table-formats-with-multi-catalog-in-amazon-emr/": {
+   "main_service": "EMR",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/monitoring-mwaa-orchestrated-etl-pipelines-with-amazon-opensearch-service/": {
+   "main_service": "OpenSearch",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/cost-effective-etl-with-duckdb-and-amazon-s3-tables-on-aws-glue/": {
+   "main_service": "DuckDB",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/run-an-automated-operational-review-with-the-amazon-redshift-mcp-server/": {
+   "main_service": "Redshift",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/materialize-once-query-anywhere-introducing-iceberg-materialized-views-in-amazon-redshift/": {
+   "main_service": "Redshift",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  },
+  "https://aws.amazon.com/blogs/big-data/optimize-consumer-rebalancing-on-amazon-msk-with-next-generation-protocol/": {
+   "main_service": "MSK / Kafka",
+   "changed_on": "2026-11-24",
+   "why": "filled from source data",
+   "by": "chat"
+  }
+ }
 }
