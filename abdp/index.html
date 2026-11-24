@@ -469,7 +469,7 @@ function fillSheet(r,dir){
  const dl=[['Trade-off it covers',r.dec],['Fits my project',r.at],['Idea it gives',r.seed],['AWS services',r.sv],['Kind of post',r.ty.join(' · ')],['AWS category · level',r.aws],['Topic',r.g],['Company / authors',r.au],['Published',r.d],['Used by me?',r.st],['Changed',r.chg?[r.chg.on,r.chg.why].filter(Boolean).join(' · '):'']].filter(x=>x[1]);
  const sh=$('sheet');
  sh.innerHTML=`<div class="rz" title="Drag to resize"></div><div class="grab"></div><div class="sh"><h2>${r.isNew?'<span class="newb">New</span>':''}${esc(r.t)}</h2><div class="nav"><button data-s="prev" aria-label="Previous" title="Previous (← key, or swipe sideways on the touchpad)" ${i<=0?'disabled':''}>‹</button><span>${i+1}/${n}</span><button data-s="next" aria-label="Next" title="Next (→ key, or swipe sideways on the touchpad)" ${i<0||i>=n-1?'disabled':''}>›</button></div><button class="x" data-s="close" aria-label="Close">×</button></div>
- <div class="sb"><div class="top2">${r.a?`<span class="pill ${esc(cls(r.a))}">${esc(r.a)}</span>`:''}${r.p?`<span class="pill ${esc(cls(r.p))}">${esc(r.p)}</span>`:''}${r.fit?`<span class="tag">${esc(r.fit)}</span>`:''}</div><div class="lab">Key points</div><ul style="margin-top:4px">${r.kp.map(k=>`<li>${hl(k)}</li>`).join('')}</ul><div class="lab">Details</div><dl>${dl.map(([a,b])=>`<dt>${a}</dt><dd>${hl(b)}</dd>`).join('')}</dl>${r.u?`<a class="go" href="${esc(r.u)}" target="_blank" rel="noopener">Open on AWS ↗</a>`:''}<div class="tip">${matchMedia('(pointer:coarse)').matches?'Swipe left / right for next / previous · pull down to close':'← → or ‹ › for previous / next · Esc to close'}</div></div>`;
+ <div class="sb"><div class="top2">${r.a?`<span class="pill ${esc(cls(r.a))}">${esc(r.a)}</span>`:''}${r.p?`<span class="pill ${esc(cls(r.p))}">${esc(r.p)}</span>`:''}${r.fit?`<span class="tag">${esc(r.fit)}</span>`:''}</div><div class="lab">Key points</div><ul style="margin-top:4px">${r.kp.map(k=>`<li>${hl(k)}</li>`).join('')}</ul><div class="lab">Details</div><dl>${dl.map(([a,b])=>`<dt>${a}</dt><dd>${hl(b)}</dd>`).join('')}</dl>${r.u?`<a class="go" href="${esc(r.u)}" target="_blank" rel="noopener" title="Opens in one reader window that is reused for every post (Ctrl+click = new tab)">Open on AWS ↗</a>`:''}<div class="tip">${matchMedia('(pointer:coarse)').matches?'Swipe left / right for next / previous · pull down to close':'← → or ‹ › for previous / next · Esc to close'}</div></div>`;
  if(dir&&sh.querySelector('.sb').animate&&!matchMedia('(prefers-reduced-motion:reduce)').matches)sh.querySelector('.sb').animate([{transform:`translateX(${dir*48}px)`,opacity:0},{transform:'none',opacity:1}],{duration:170,easing:'ease-out'});
 }
 function markHL(scroll){document.querySelectorAll('tr.r').forEach(tr=>tr.classList.toggle('cur',+tr.dataset.id===HL));
@@ -510,6 +510,18 @@ $('sheet').onclick=e=>{const b=e.target.closest('[data-s]');if(!b)return;const a
    if(s&&s!==sgn)acc=0;sgn=s;acc+=dx;
    if(Math.abs(acc)>=90){lock=true;peak=ax;step(acc>0?1:-1)}
   },{passive:false});
+}
+{ /* "Open on AWS" and the ↗ links reuse ONE reader window (laptop: a window on the right half of the screen; phone: one tab), so tabs never pile up.
+     Ctrl/Cmd/Shift/Alt-click and middle-click keep the browser's normal behaviour. */
+  document.addEventListener('click',e=>{
+   const a=e.target.closest&&e.target.closest('a.go,a[data-x="link"]');
+   if(!a||e.button!==0||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;
+   const sc=screen,wide=matchMedia('(pointer:fine) and (min-width:900px)').matches;
+   const half=Math.round(sc.availWidth/2);
+   const w=window.open(a.href,'abdp-reader',wide?`popup,width=${half},height=${sc.availHeight},left=${(sc.availLeft||0)+half},top=${sc.availTop||0}`:'');
+   if(!w)return;                 /* blocked (e.g. a sandboxed preview): the link opens normally */
+   e.preventDefault();w.focus();
+  },true);
 }
 { /* touch gestures: swipe left/right = next/previous, pull down = close (phone sheet) */
  const sh=$('sheet');let x0=0,y0=0,dx=0,dy=0,mode=null;
