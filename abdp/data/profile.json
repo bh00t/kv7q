@@ -1,0 +1,31 @@
+{
+ "note": "Edit these lists when your stack changes. The page recalculates Stack fit and Priority from them; the scheduled task re-tags Action / Attaches to for affected posts.",
+ "used": [
+  "Redshift",
+  "Glue",
+  "Kinesis",
+  "Lambda",
+  "Zero-ETL / DMS"
+ ],
+ "hands_on": [
+  "dbt",
+  "DuckDB",
+  "Athena",
+  "Step Functions"
+ ],
+ "path": [
+  "Iceberg / S3 Tables",
+  "EMR",
+  "MSK / Kafka",
+  "Flink",
+  "Firehose",
+  "Lake Formation"
+ ],
+ "active_work": [
+  "dbt-pipelines (dbt + Redshift Serverless; Athena + Iceberg later)",
+  "aws-bytes: File Layout Optimization (active)",
+  "aws-bytes: Redshift ETL failure alert (planned)"
+ ],
+ "priority_rule": "Skip \u2192 Low; Build a tool \u2192 High; any service in used/hands_on \u2192 High; any in path \u2192 Med; else Low",
+ "new_rule": "New = added in the last 30 days"
+}

@@ -1,0 +1,4 @@
+{
+ "note": "Tag changes made after a post was first stored. Keyed by post URL; only the changed fields. These win over the month files. Fields: action, priority, stack_fit, blog_types, seed, decision, group, attaches_to, status, main_service, services, key_points, plus changed_on, why, by (schedule|chat).",
+ "posts": {}
+}
