@@ -327,9 +327,9 @@ async function boot(){
 /* ---------- state ---------- */
 let S={dt:{p:'any'},intent:'post',sel:{},q:'',sort:null,wrap:false,cols:{},skip:false,open:{},find:{},all:{},cur:null};
 try{const s=JSON.parse(localStorage.getItem('pulse-v1')||'null');if(s)S={...S,...s,cur:null,find:{}}}catch(e){}
-S.all=S.all||{};FACETS.forEach(f=>{S.sel[f.k]=new Set(S.sel[f.k]||[]);if(S.open[f.k]==null)S.open[f.k]=!!f.open});
+S.all=S.all||{};S.open={}; /* every filter section starts collapsed on a fresh open */ FACETS.forEach(f=>{S.sel[f.k]=new Set(S.sel[f.k]||[])});
 const I=()=>INTENTS.find(x=>x.id===S.intent)||INTENTS[0];
-const colsOf=()=>S.cols[S.intent]||I().cols;
+const colsOf=()=>{const c=S.cols[S.intent]||I().cols;return Object.keys(COL).filter(k=>c.includes(k))}; /* grid order = Columns list order */
 const save=()=>{try{localStorage.setItem('pulse-v1',JSON.stringify({...S,sel:Object.fromEntries(Object.entries(S.sel).map(([k,v])=>[k,[...v]])),cur:null,find:{}}))}catch(e){}};
 let TERMS=[],RX=null;
 function setQ(v){S.q=v;TERMS=[];v.replace(/"([^"]+)"|(\S+)/g,(m,a,b)=>{const x=(a||b||'').toLowerCase().trim();if(x)TERMS.push(x);return m});const p=TERMS.filter(x=>x.length>1).map(x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));RX=p.length?new RegExp('('+p.join('|')+')','gi'):null}
@@ -378,7 +378,7 @@ ${!fq&&(extra||S.all[f.k])&&all.length>TOP+1?`<button class="more" data-more-f="
  </div></details>`;
 }
 function dateHTML(){const d=S.dt||{p:'any'};const on=d.p&&d.p!=='any';
- return `<details class="f" data-k="_date" ${S.open._date!==false?'open':''}><summary>Published${on?'<span class="n">1</span>':''}</summary><div class="fl">
+ return `<details class="f" data-k="_date" ${S.open._date?'open':''}><summary>Published${on?'<span class="n">1</span>':''}</summary><div class="fl">
  ${DPRE.map(([v,l])=>`<label class="opt"><input type="radio" name="dt" data-dt="${v}" ${(d.p||'any')===v?'checked':''}>${l}</label>`).join('')}
  ${d.p==='custom'?`<div style="display:grid;grid-template-columns:auto 1fr;gap:6px 8px;align-items:center;padding:6px 6px 2px"><span class="hint">From</span><input type="date" data-dtf="from" value="${esc(d.from||'')}" style="font-size:14px;padding:4px;border:1px solid var(--ln);border-radius:4px;background:var(--bg)"><span class="hint">To</span><input type="date" data-dtf="to" value="${esc(d.to||'')}" style="font-size:14px;padding:4px;border:1px solid var(--ln);border-radius:4px;background:var(--bg)"></div>`:''}
  </div></details>`}
