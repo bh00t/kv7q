@@ -474,7 +474,7 @@ function fillSheet(r,dir){
  const i=ORDER.indexOf(r.id),n=ORDER.length;
  const dl=[['Trade-off it covers',r.dec],['Fits my project',r.at],['Idea it gives',r.seed],['AWS services',r.sv],['Kind of post',r.ty.join(' · ')],['AWS category · level',r.aws],['Topic',r.g],['Company / authors',r.au],['Published',r.d],['Used by me?',r.st],['Changed',r.chg?[r.chg.on,r.chg.why].filter(Boolean).join(' · '):'']].filter(x=>x[1]);
  const sh=$('sheet');
- sh.innerHTML=`<div class="rz" title="Drag to resize"></div><div class="grab"></div><div class="sh"><h2>${r.isNew?'<span class="newb">New</span>':''}${esc(r.t)}</h2><div class="nav"><button data-s="prev" aria-label="Previous" ${i<=0?'disabled':''}>‹</button><span>${i+1}/${n}</span><button data-s="next" aria-label="Next" ${i<0||i>=n-1?'disabled':''}>›</button></div><button class="x" data-s="close" aria-label="Close">×</button></div>
+ sh.innerHTML=`<div class="rz" title="Drag to resize"></div><div class="grab"></div><div class="sh"><h2>${r.isNew?'<span class="newb">New</span>':''}${esc(r.t)}</h2><div class="nav"><button data-s="prev" aria-label="Previous" title="Previous (← key, or swipe sideways on the touchpad)" ${i<=0?'disabled':''}>‹</button><span>${i+1}/${n}</span><button data-s="next" aria-label="Next" title="Next (→ key, or swipe sideways on the touchpad)" ${i<0||i>=n-1?'disabled':''}>›</button></div><button class="x" data-s="close" aria-label="Close">×</button></div>
  <div class="sb"><div class="top2">${r.a?`<span class="pill ${esc(cls(r.a))}">${esc(r.a)}</span>`:''}${r.p?`<span class="pill ${esc(cls(r.p))}">${esc(r.p)}</span>`:''}${r.fit?`<span class="tag">${esc(r.fit)}</span>`:''}</div><div class="lab">Key points</div><ul style="margin-top:4px">${r.kp.map(k=>`<li>${hl(k)}</li>`).join('')}</ul><div class="lab">Details</div><dl>${dl.map(([a,b])=>`<dt>${a}</dt><dd>${hl(b)}</dd>`).join('')}</dl>${r.u?`<a class="go" href="${esc(r.u)}" target="_blank" rel="noopener">Open on AWS ↗</a>`:''}<div class="tip">${matchMedia('(pointer:coarse)').matches?'Swipe left / right for next / previous · pull down to close':'← → or ‹ › for previous / next · Esc to close'}</div></div>`;
  if(dir&&sh.querySelector('.sb').animate&&!matchMedia('(prefers-reduced-motion:reduce)').matches)sh.querySelector('.sb').animate([{transform:`translateX(${dir*48}px)`,opacity:0},{transform:'none',opacity:1}],{duration:170,easing:'ease-out'});
 }
@@ -491,6 +491,23 @@ function step(d){if(CUR===null)return;const j=ORDER.indexOf(CUR)+d;if(j<0||j>=OR
   addEventListener('pointermove',mv);addEventListener('pointerup',up)});
 }
 $('sheet').onclick=e=>{const b=e.target.closest('[data-s]');if(!b)return;const a=b.dataset.s;if(a==='close')closeRec();else if(a==='prev')step(-1);else if(a==='next')step(1)};
+{ /* laptop touchpad: a clear sideways two-finger swipe on the details panel = next / previous record (same direction as the phone swipe).
+     Left alone: vertical scrolling, Ctrl+wheel (browser zoom), Shift+wheel (mouse sideways scroll), and anything inside the panel that can itself scroll sideways.
+     The browser's own swipe-back is blocked only while the pointer is over the open panel; everywhere else it works as normal. */
+  const sh=$('sheet');let acc=0,lock=false,quiet=0;
+  const canScrollX=(el,d)=>{for(;el&&el!==sh;el=el.parentElement){if(el.scrollWidth>el.clientWidth+1&&/auto|scroll/.test(getComputedStyle(el).overflowX)&&(d>0?el.scrollLeft+el.clientWidth<el.scrollWidth-1:el.scrollLeft>0))return true}return false};
+  sh.addEventListener('wheel',e=>{
+   if(CUR===null||e.ctrlKey||e.shiftKey)return;
+   const ax=Math.abs(e.deltaX),ay=Math.abs(e.deltaY);
+   if(ax<=ay*1.5)return;                       /* mostly vertical = normal scrolling */
+   if(canScrollX(e.target,e.deltaX))return;     /* an inner sideways scroller gets it */
+   e.preventDefault();
+   clearTimeout(quiet);quiet=setTimeout(()=>{acc=0;lock=false},180); /* one move per gesture; touchpad momentum is absorbed */
+   if(lock)return;
+   acc+=e.deltaMode===1?e.deltaX*16:e.deltaX;
+   if(Math.abs(acc)>=90){lock=true;step(acc>0?1:-1)}
+  },{passive:false});
+}
 { /* touch gestures: swipe left/right = next/previous, pull down = close (phone sheet) */
  const sh=$('sheet');let x0=0,y0=0,dx=0,dy=0,mode=null;
  sh.addEventListener('touchstart',e=>{if(e.touches.length!==1)return;x0=e.touches[0].clientX;y0=e.touches[0].clientY;dx=dy=0;mode=null},{passive:true});
