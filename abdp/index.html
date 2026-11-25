@@ -205,7 +205,7 @@ tbody tr.r.cur td.tc{box-shadow:inset 3px 0 0 var(--blue),2px 0 0 var(--ln)}
   <aside class="side" id="side" aria-label="Search and filters"></aside>
   <div class="scrim" id="scrim"></div>
   <section class="content">
-    <div class="tools"><button class="btn fbtn" id="fbtn">Filters</button><div class="sbox"><label class="search"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 14 15.5l.3.3v.8l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg><input id="q" type="text" autocomplete="off" spellcheck="false" placeholder="Search blogs  ( / )" aria-label="Search" role="combobox" aria-controls="sug" aria-expanded="false"><span id="qn" class="qn"></span><button id="qx" class="qx" aria-label="Clear search" hidden>×</button></label><div id="sug" class="sug" role="listbox"></div></div><button class="btn" id="newb" title="Posts added in the last 30 days that were published at most 30 days before they were added">New</button></div>
+    <div class="tools"><button class="btn fbtn" id="fbtn">Filters</button><div class="sbox"><label class="search"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 14 15.5l.3.3v.8l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg><input id="q" type="text" autocomplete="off" spellcheck="false" placeholder="Search blogs  ( / )" aria-label="Search" role="combobox" aria-controls="sug" aria-expanded="false"><span id="qn" class="qn"></span><button id="qx" class="qx" aria-label="Clear search" hidden>×</button></label><div id="sug" class="sug" role="listbox"></div></div><button class="btn" id="newb" title="Posts added in the last 30 days that were published at most 30 days before they were added">New</button><button class="btn" id="cpyb" title="Copy the rows and columns shown now as a table (paste into Excel or Sheets)"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg><span class="lg">Copy</span></button><button class="btn" id="csvb" title="Download the rows and columns shown now as a CSV file"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg><span class="lg">CSV</span></button></div>
     <div class="chips" id="chips"></div>
     <div class="wrap" id="wrap"></div>
     <div class="ytabs" id="ytabs"><div class="yrs" id="yrs" role="tablist" aria-label="Year sheets"></div></div>
@@ -566,6 +566,33 @@ function renderFoot(rows){
 /* ---------- glue ---------- */
 function clearAll(){S.newOnly=false;S.dt={p:'any'};FACETS.forEach(f=>S.sel[f.k].clear());setQ('');$('q').value='';closeSug();S.find={};S.cur=null;render()}
 function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),1800)}
+/* export: every row that passes the current tab, year, filters and search, in the current sort order; only the columns shown now, in their order */
+function plainCell(r,k){const v=r[k];if(k==='kp')return v;if(Array.isArray(v))return v.join(', ');return String(v??'')}
+function exportRows(){const cols=colsOf();return {cols,rows:sorted(filtered())}}
+function exportName(){const t=I().l.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');const d=new Date();
+ const mon=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()];return `pulse_${S.year||'all'}_${t}_${String(d.getDate()).padStart(2,'0')}-${mon}.csv`}
+const csvq=(v,sep)=>{v=String(v);return /["\r\n]/.test(v)||v.includes(sep)?'"'+v.replace(/"/g,'""')+'"':v};
+function copyTable(){const {cols,rows}=exportRows();if(!rows.length)return toast('Nothing to copy');
+ const head=['Blog',...cols.map(k=>COL[k].l)];
+ const txt=[head,...rows.map(r=>[r.t,...cols.map(k=>{const v=plainCell(r,k);return Array.isArray(v)?v.join('\n'):v})])].map(a=>a.map(v=>csvq(v,'\t')).join('\t')).join('\r\n');
+ const br='<br style="mso-data-placement:same-cell">';
+ const html='<table><thead><tr>'+head.map(h=>`<th>${esc(h)}</th>`).join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr><td>'+(r.u?`<a href="${esc(r.u)}">${esc(r.t)}</a>`:esc(r.t))+'</td>'+cols.map(k=>{const v=plainCell(r,k);return '<td>'+(Array.isArray(v)?v.map(esc).join(br):esc(v))+'</td>'}).join('')+'</tr>').join('')+'</tbody></table>';
+ const msg=`Copied ${rows.length} row${rows.length>1?'s':''} × ${head.length} columns`;
+ let ok=false;const h=e=>{e.preventDefault();e.clipboardData.setData('text/plain',txt);e.clipboardData.setData('text/html',html);ok=true};
+ document.addEventListener('copy',h);try{document.execCommand('copy')}catch(e){}document.removeEventListener('copy',h);
+ if(ok)return toast(msg);
+ if(navigator.clipboard&&window.ClipboardItem)navigator.clipboard.write([new ClipboardItem({'text/plain':new Blob([txt],{type:'text/plain'}),'text/html':new Blob([html],{type:'text/html'})})]).then(()=>toast(msg),()=>toast('Copy blocked by the browser'));
+ else if(navigator.clipboard)navigator.clipboard.writeText(txt).then(()=>toast(msg),()=>toast('Copy blocked by the browser'));else toast('Copy blocked by the browser')}
+function downloadCsv(){const {cols,rows}=exportRows();if(!rows.length)return toast('Nothing to download');
+ /* a CSV cannot hold links, so the post URL gets its own column right after Blog */
+ const head=['Blog','URL',...cols.map(k=>COL[k].l)];
+ const csv=[head,...rows.map(r=>[r.t,r.u,...cols.map(k=>{const v=plainCell(r,k);return Array.isArray(v)?v.join('\n'):v})])].map(a=>a.map(v=>csvq(v,',')).join(',')).join('\r\n');
+ /* leading BOM so Excel opens the file as UTF-8 (— · ↗ stay readable) */
+ const url=URL.createObjectURL(new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=exportName();
+ document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),4000);toast(`Downloaded ${rows.length} row${rows.length>1?'s':''} × ${head.length} columns`)}
+$('cpyb').onclick=copyTable;$('csvb').onclick=downloadCsv;
+/* inside a framed viewer (e.g. a sandboxed preview) file downloads are blocked, so the CSV button is hidden there; Copy still works */
+{let framed=false;try{framed=window.self!==window.top}catch(e){framed=true}if(framed)$('csvb').hidden=true}
 function renderMain(){LIMIT=120;const rows=filtered();renderTabs();renderChips();renderTable(rows);renderFoot(rows);syncSheet();
  const side=$('side');FACETS.forEach(f=>{const d=side.querySelector(`details[data-k="${f.k}"]`);if(d&&!d.contains(document.activeElement)){const t=document.createElement('div');t.innerHTML=facetHTML(f);d.replaceWith(t.firstElementChild)}});
  const cl=side.querySelector('.shd');if(cl)cl.innerHTML=`<span>FILTERS</span>${anyFilter()?'<button class="link" data-a="clear">Clear all</button>':''}`;save()}
